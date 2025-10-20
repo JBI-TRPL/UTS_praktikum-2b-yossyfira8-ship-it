@@ -36,22 +36,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _saveProfile() async {
     final newUsername = _usernameController.text.trim();
-    final existing = await DatabaseHelper.instance.getUserByUsername(newUsername);
+    final existing =
+        await DatabaseHelper.instance.getUserByUsername(newUsername);
     if (!mounted) return;
     if (existing != null && existing.id != widget.user.id) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Username sudah dipakai')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Username sudah dipakai')));
       return;
     }
 
     final password = _passwordController.text.trim();
     if (password.length < 6) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password minimal 6 karakter')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Password minimal 6 karakter')));
       return;
     }
 
     final fullname = _fullnameController.text.trim();
     if (fullname.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Full name tidak boleh kosong')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Full name tidak boleh kosong')));
       return;
     }
 
@@ -63,7 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
 
     await DatabaseHelper.instance.updateUser(updated);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profile updated')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Profile updated')));
     Navigator.of(context).pop(updated);
   }
 
@@ -75,13 +80,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(controller: _fullnameController, decoration: const InputDecoration(labelText: 'Full Name')),
+            TextField(
+                controller: _fullnameController,
+                decoration: const InputDecoration(labelText: 'Full Name')),
             const SizedBox(height: 12),
-            TextField(controller: _usernameController, decoration: const InputDecoration(labelText: 'Username')),
+            TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(labelText: 'Username')),
             const SizedBox(height: 12),
-            TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email')),
+            TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Email')),
             const SizedBox(height: 12),
-            TextField(controller: _passwordController, decoration: const InputDecoration(labelText: 'Password')),
+            TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password')),
             const SizedBox(height: 20),
             ElevatedButton(onPressed: _saveProfile, child: const Text('Save'))
           ],

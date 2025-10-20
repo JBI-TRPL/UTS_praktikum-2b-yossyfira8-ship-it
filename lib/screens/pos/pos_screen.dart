@@ -142,6 +142,14 @@ class _PosScreenState extends State<PosScreen> {
                 color: Colors.blue,
                 onPressed: () {
                   _updateCart(product.id!, quantity + 1);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Item ditambahkan ke keranjang!'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                
                 },
               ),
             ],
